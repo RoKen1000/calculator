@@ -9,6 +9,9 @@ export const Calculator: FC = () => {
     
     return(
         <main>
+            <div className="calculator-box">
+
+            </div>
         </main>
     )
 }
