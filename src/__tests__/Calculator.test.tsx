@@ -69,6 +69,7 @@ describe("Calculator component display div rendering", () => {
         const numberButton6 = getByRole("button", {name: "6"})
         const additionButton = getByRole("button", {name: "+"})
         const multiplicationButton = getByRole("button", {name: "*"})
+        const subtractionButton = getByRole("button", {name: "-"})
 
         fireEvent.click(numberButton1)
         fireEvent.click(numberButton2)
@@ -79,9 +80,12 @@ describe("Calculator component display div rendering", () => {
         fireEvent.click(multiplicationButton)
         fireEvent.click(numberButton1)
         fireEvent.click(numberButton2)
+        fireEvent.click(numberButton5)
+        fireEvent.click(subtractionButton)
+        fireEvent.click(numberButton4)
 
         const query = getByTestId("query").textContent;
 
-        expect(query).toBe("123+16*12")
+        expect(query).toBe("123+16*125-4")
     })
 })

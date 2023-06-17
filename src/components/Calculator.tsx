@@ -29,22 +29,29 @@ export const Calculator: FC = () => {
     return(
         <main>
             <div className="calculator-box">
-                <div className="calculator-display" data-testid="query">{!calcualtorQuery.length ? currentNumber : [calcualtorQuery, currentNumber]}</div>
-                    <button onClick={() => handleButtonClick("+")}>+</button>
-                    <button onClick={() => handleButtonClick("-")}>-</button>
-                    <button onClick={() => handleButtonClick("*")}>*</button>
-                    <button onClick={() => handleButtonClick("/")}>/</button>
-                    <button className="equals-button"  >=</button>
-                    <button className="clear-button">x</button>
-                    <button onClick={() => handleButtonClick(7)}>7</button>
-                    <button onClick={() => handleButtonClick(8)}>8</button>
-                    <button onClick={() => handleButtonClick(9)}>9</button>
-                    <button onClick={() => handleButtonClick(4)}>4</button>
-                    <button onClick={() => handleButtonClick(5)}>5</button>
-                    <button onClick={() => handleButtonClick(6)}>6</button>
-                    <button onClick={() => handleButtonClick(1)}>1</button>
-                    <button onClick={() => handleButtonClick(2)}>2</button>
-                    <button onClick={() => handleButtonClick(3)}>3</button>
+                
+                <div className="calculator-display">
+                    <div data-testid="query" className="calculator-display-text" >{!calcualtorQuery.length ? currentNumber : [calcualtorQuery, currentNumber]}</div>
+                </div>
+
+                <button onClick={() => handleButtonClick("+")}>+</button>
+                <button id="minus-button" onClick={() => handleButtonClick("-")}>-</button>
+                <button onClick={() => handleButtonClick("*")}>x</button>
+                <button id="divide-button" onClick={() => handleButtonClick("/")}>÷</button>
+                <button id="equals-button"  >=</button>
+                <button id="clear-button">C</button>
+                <button id="clear-entry-button">CE</button>
+                <button onClick={() => handleButtonClick(7)}>7</button>
+                <button onClick={() => handleButtonClick(8)}>8</button>
+                <button onClick={() => handleButtonClick(9)}>9</button>
+                <button onClick={() => handleButtonClick(4)}>4</button>
+                <button onClick={() => handleButtonClick(5)}>5</button>
+                <button onClick={() => handleButtonClick(6)}>6</button>
+                <button onClick={() => handleButtonClick(1)}>1</button>
+                <button onClick={() => handleButtonClick(2)}>2</button>
+                <button onClick={() => handleButtonClick(3)}>3</button>
+                <button id="zero-button" onClick={() => handleButtonClick(0)}>0</button>
+                <button id="decimal-button" onClick={() => handleButtonClick(".")}>.</button>
             </div>
         </main>
     )

@@ -3,11 +3,11 @@
     display: grid;
     background-color: rgb(220, 217, 217);
     width: 240px;
-    height: 320px;
+    height: 368px;
     margin: auto;
     justify-content: center;
     grid-template-columns: 50px 50px 50px 50px;
-    grid-template-rows: 100px 50px 50px 50px 50px;
+    grid-template-rows: 100px 50px 50px 50px 50px 50px;
     border-radius: 15px;
 }
 
@@ -17,17 +17,37 @@
     background-color: rgb(227, 242, 251);
     grid-column: 1 / 5;
     margin: auto 0px auto 0px;
+    border-radius: 5px;
+    font-size: x-large;
+    overflow: auto;
 }
 
-.equals-button{
+.calculator-display-text{
+    margin: 17px 0 0 8px;
+}
+
+#equals-button{
     background-color: rgb(106, 169, 106);
     grid-column: 4;
-    grid-row: 6 / 4;
+    grid-row: 7 / 5;
 }
 
-.clear-button{
+#clear-button{
     background-color: rgb(192, 119, 119);
     grid-column: 4;
     grid-row: 3;
 }
 
+#clear-entry-button{
+    grid-column: 4;
+    grid-row: 4;
+}
+
+#minus-button, #divide-button, #decimal-butto{
+    font-size: large;
+}
+
+#zero-button{
+    grid-column: 2 / 4;
+    grid-row: 6;
+}
