@@ -33,7 +33,6 @@
 }
 
 #clear-button{
-    background-color: rgb(192, 119, 119);
     grid-column: 4;
     grid-row: 3;
 }
