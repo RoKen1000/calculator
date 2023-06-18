@@ -1,6 +1,5 @@
 import { render, fireEvent } from "@testing-library/react";
 import { Calculator } from "../components/Calculator";
-import { clear } from "console";
 
 describe("Calculator component display rendering", () => {
     test("When calculator buttons are clicked, this should add a number into state", () => {
@@ -167,5 +166,21 @@ describe("Calculator component display rendering", () => {
         const query = getByTestId("query").textContent;
 
         expect(query).toBe("")
+    })
+})
+
+describe.only("Calculation query answer rendering", () => {
+    test("When the equals button is clicked, the query is cleared and the calculated answer appears - if a single number is passed then that number is returned", () => {
+        const {getByTestId, getByRole} = render(<Calculator />)
+        const numberButton2 = getByRole("button", {name: "2"})
+        const equalsButton = getByRole("button", {name: "="})
+
+        fireEvent.click(numberButton2)
+        fireEvent.click(numberButton2)
+        fireEvent.click(equalsButton)
+
+        const query = getByTestId("query").textContent;
+
+        expect(query).toBe("22")
     })
 })
