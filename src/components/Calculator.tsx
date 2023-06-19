@@ -7,75 +7,97 @@ import { CalculatorHistory } from "./CalculatorHistory";
 export const Calculator: FC = () => {
 
     const [calculatorQuery, setCalculatorQuery] = useState<(number | string)[]>([])
-    const [currentNumber, setCurrentNumber] = useState<number[]>([])
-    const [calculation, setCalculation] = useState<number | null>(null)
-    const [calcInProgress, setCalcInProgress] = useState(false)
-    const [pastCalculations, setPastCaulations] = useState<(number | string)[][]>([])
+    const [currentExpression, setCurrentExpression] = useState<number[]>([])
+    const [result, setResult] = useState<number | null>(null)
+    const [calculationInProgress, setCalculationInProgress] = useState(false)
+    const [pastCalculations, setPastCalculations] = useState<(number | string)[][]>([])
+    const [error, setError] = useState("")
 
     const handleButtonClick = (value: string | number) => {
 
-        if(calculation !== null) setCalculation(null);
+        if(result !== null) setResult(null);
+        if(error) setError("")
 
-        const mathsOperators = ["+", "-", "*", "/", "="];
+        const mathsOperators = ["+", "-", "*", "/"];
 
         if(mathsOperators.includes(value as string)){
-            if(!calculatorQuery.length){
-                setCalculatorQuery([+currentNumber.join(""), value]);
-                setCurrentNumber([]);
+
+            if(!calculatorQuery.length && !currentExpression.length){
+                    setCalculatorQuery([value]);
+                    return;
+            }
+
+            if(typeof calculatorQuery[calculatorQuery.length - 1] === "string" && !currentExpression.length){
+                setCalculatorQuery([...calculatorQuery, value]);
                 return;
             }
-            setCalculatorQuery([...calculatorQuery, +currentNumber.join(""), value]);
-            setCurrentNumber([]);
+
+            setCalculatorQuery([...calculatorQuery, +currentExpression.join(""), value]);
+            setCurrentExpression([]);
             return;
         }
-        setCurrentNumber([...currentNumber, value as number]);
+        setCurrentExpression([...currentExpression, value as number]);
     }
 
-    const handleClearExpression = () => setCurrentNumber([]);
+    const handleClearExpression = () => setCurrentExpression([]);
 
     const handleClearAll = () => {
-        setCurrentNumber([]);
+        setCurrentExpression([]);
         setCalculatorQuery([]);
-        setCalculation(null);
+        setResult(null);
     }
 
-    const handleCommenceCalculate = () => {
-        setCalculatorQuery([...calculatorQuery, +currentNumber.join("")]);
-        setCalcInProgress(true);         
+    const handleVerifyCalculation = () => {
+        if(currentExpression.length === 0 || typeof calculatorQuery[0] === "string"){
+            setError("Error");
+            setCalculatorQuery([]);
+            setCurrentExpression([])
+            return;
+        }
+        for(let i = 0; i < calculatorQuery.length; i++){
+            if(typeof calculatorQuery[i] === "string" && typeof calculatorQuery[i + 1] === "string"){
+                setError("Error");
+                setCalculatorQuery([]);
+                setCurrentExpression([])
+                return;
+            }
+        }
+        setCalculatorQuery([...calculatorQuery, +currentExpression.join("")]);
+        setCalculationInProgress(true);         
     }
 
     useEffect(() => {
-        if(!calcInProgress) return;
-        setCurrentNumber([]);
-        setCalculation(calculateQuery(calculatorQuery));
-        setCalcInProgress(false);
-    }, [calcInProgress])
+        if(!calculationInProgress) return;
+        setCurrentExpression([]);
+        setResult(calculateQuery(calculatorQuery));
+        setCalculationInProgress(false);
+    }, [calculationInProgress])
     
     const updatePastCalculations = () => {
-        if(calculatorQuery.length === 1) setPastCaulations([...pastCalculations, [...calculatorQuery]]);
-        else setPastCaulations([...pastCalculations, [...calculatorQuery, "=", calculation as number]]);
+        if(calculatorQuery.length === 1) setPastCalculations([...pastCalculations, [...calculatorQuery]]);
+        else setPastCalculations([...pastCalculations, [...calculatorQuery, "=", result as number]]);
     }
 
     useEffect(() => {
-        if(calculation !== null){
+        if(result !== null){
             updatePastCalculations();
             setCalculatorQuery([]);
         }
-    }, [calculation])
+    }, [result])
 
     return(
         <main className="calculator-content-container">
             <div className="calculator-box">
                 <div className="calculator-display">
                     <div data-testid="calcDisplay" className="calculator-display-text" >
-                        {calculation !== null ? <strong>{calculation}</strong> : !calculatorQuery.length || calcInProgress ? currentNumber : [calculatorQuery, currentNumber]}
+                        {error ? error : result !== null ? <strong>{result}</strong> : !calculatorQuery.length || calculationInProgress ? currentExpression : [calculatorQuery, currentExpression]}
                     </div>
                 </div>
                 <button onClick={() => handleButtonClick("+")}>+</button>
                 <button id="minus-button" onClick={() => handleButtonClick("-")}>-</button>
                 <button onClick={() => handleButtonClick("*")}>x</button>
                 <button id="divide-button" onClick={() => handleButtonClick("/")}>÷</button>
-                <button id="equals-button" onClick={handleCommenceCalculate}>=</button>
+                <button id="equals-button" onClick={handleVerifyCalculation}>=</button>
                 <button id="clear-button" onClick={handleClearAll}>C</button>
                 <button id="clear-entry-button" onClick={handleClearExpression}>CE</button>
                 <button onClick={() => handleButtonClick(7)}>7</button>
@@ -90,7 +112,6 @@ export const Calculator: FC = () => {
                 <button id="zero-button" onClick={() => handleButtonClick(0)}>0</button>
                 <button id="decimal-button" onClick={() => handleButtonClick(".")}>.</button>
             </div>
-            
             <CalculatorHistory pastCalculations={pastCalculations}/>
         </main>
     )
