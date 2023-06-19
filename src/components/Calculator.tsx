@@ -90,7 +90,7 @@ export const Calculator: FC = () => {
                 <button id="zero-button" onClick={() => handleButtonClick(0)}>0</button>
                 <button id="decimal-button" onClick={() => handleButtonClick(".")}>.</button>
             </div>
-            {pastCalculations.length > 0 && <h2>Calculation History:</h2>}
+            {pastCalculations.length > 0 && <h2>Calculation History</h2>}
             <CalculatorHistory pastCalculations={pastCalculations}/>
         </main>
     )
