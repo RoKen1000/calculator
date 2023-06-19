@@ -36,7 +36,7 @@ export const Calculator: FC = () => {
         setCalculatorQuery([]);
     }
 
-    const handleCalculate = () => {
+    const handleCommenceCalculate = () => {
         setCalculatorQuery([...calculatorQuery, +currentNumber.join("")]);
         setCalcInProgress(true);         
     }
@@ -52,18 +52,16 @@ export const Calculator: FC = () => {
     return(
         <main>
             <div className="calculator-box">
-                
                 <div className="calculator-display">
-                    <div data-testid="query" className="calculator-display-text" >
+                    <div data-testid="calcDisplay" className="calculator-display-text" >
                         {calculation ? <strong>{calculation}</strong> : !calculatorQuery.length || calcInProgress ? currentNumber : [calculatorQuery, currentNumber]}
                     </div>
                 </div>
-
                 <button onClick={() => handleButtonClick("+")}>+</button>
                 <button id="minus-button" onClick={() => handleButtonClick("-")}>-</button>
                 <button onClick={() => handleButtonClick("*")}>x</button>
                 <button id="divide-button" onClick={() => handleButtonClick("/")}>÷</button>
-                <button id="equals-button" onClick={handleCalculate}>=</button>
+                <button id="equals-button" onClick={handleCommenceCalculate}>=</button>
                 <button id="clear-button" onClick={handleClearAll}>C</button>
                 <button id="clear-entry-button" onClick={handleClearExpression}>CE</button>
                 <button onClick={() => handleButtonClick(7)}>7</button>
