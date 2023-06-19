@@ -1,0 +1,20 @@
+
+.calculator-history-container{
+    background-color: rgb(205, 203, 203);
+    text-align: center;
+    width: 240px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 20px;
+    font-size: x-large;
+    overflow-wrap: break-word;
+}
+
+.calculator-history-list{
+    list-style-type: none;
+    padding: 0;
+}
+
+.calculator-history-list-items{
+    border-top: solid black 1px;
+}
