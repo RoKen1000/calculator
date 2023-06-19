@@ -21,8 +21,14 @@
     border-top: solid black 1px;
 }
 
+@media screen and (min-width: 500px) {
+    .calculator-history-container{
+        width: 300px;  
+    }
+}
+
 @media screen and (max-width: 800px){
     .calculator-history-container{
-        margin-bottom: 20px;
+        margin-bottom: 20px;  
     }
 }
