@@ -2,17 +2,19 @@ import { FC } from "react";
 import { useState, useEffect } from "react";
 import "../styles/Calculator.css";
 import { calculateQuery } from "../functions/calculatorFunction";
+import { CalculatorHistory } from "./CalculatorHistory";
 
 export const Calculator: FC = () => {
 
     const [calculatorQuery, setCalculatorQuery] = useState<(number | string)[]>([])
     const [currentNumber, setCurrentNumber] = useState<number[]>([])
-    const [calculation, setCalculation] = useState<number>(0)
+    const [calculation, setCalculation] = useState<number | null>(null)
     const [calcInProgress, setCalcInProgress] = useState(false)
+    const [pastCalculations, setPastCaulations] = useState<(number | string)[][]>([])
 
     const handleButtonClick = (value: string | number) => {
 
-        if(calculation) setCalculation(0);
+        if(calculation !== null) setCalculation(null);
 
         const mathsOperators = ["+", "-", "*", "/", "="];
 
@@ -34,6 +36,7 @@ export const Calculator: FC = () => {
     const handleClearAll = () => {
         setCurrentNumber([]);
         setCalculatorQuery([]);
+        setCalculation(null);
     }
 
     const handleCommenceCalculate = () => {
@@ -44,17 +47,28 @@ export const Calculator: FC = () => {
     useEffect(() => {
         if(!calcInProgress) return;
         setCurrentNumber([]);
-        setCalculation(() => calculateQuery(calculatorQuery));
-        setCalculatorQuery([]);
+        setCalculation(calculateQuery(calculatorQuery));
         setCalcInProgress(false);
     }, [calcInProgress])
+    
+    const updatePastCalculations = () => {
+        if(calculatorQuery.length === 1) setPastCaulations([...pastCalculations, [...calculatorQuery]]);
+        else setPastCaulations([...pastCalculations, [...calculatorQuery, "=", calculation as number]]);
+    }
+
+    useEffect(() => {
+        if(calculation !== null){
+            updatePastCalculations();
+            setCalculatorQuery([]);
+        }
+    }, [calculation])
 
     return(
         <main>
             <div className="calculator-box">
                 <div className="calculator-display">
                     <div data-testid="calcDisplay" className="calculator-display-text" >
-                        {calculation ? <strong>{calculation}</strong> : !calculatorQuery.length || calcInProgress ? currentNumber : [calculatorQuery, currentNumber]}
+                        {calculation !== null ? <strong>{calculation}</strong> : !calculatorQuery.length || calcInProgress ? currentNumber : [calculatorQuery, currentNumber]}
                     </div>
                 </div>
                 <button onClick={() => handleButtonClick("+")}>+</button>
@@ -76,6 +90,8 @@ export const Calculator: FC = () => {
                 <button id="zero-button" onClick={() => handleButtonClick(0)}>0</button>
                 <button id="decimal-button" onClick={() => handleButtonClick(".")}>.</button>
             </div>
+            {pastCalculations.length > 0 && <h2>Calculation History:</h2>}
+            <CalculatorHistory pastCalculations={pastCalculations}/>
         </main>
     )
 }
