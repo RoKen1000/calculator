@@ -64,7 +64,7 @@ export const Calculator: FC = () => {
     }, [calculation])
 
     return(
-        <main>
+        <main className="calculator-content-container">
             <div className="calculator-box">
                 <div className="calculator-display">
                     <div data-testid="calcDisplay" className="calculator-display-text" >
@@ -90,7 +90,7 @@ export const Calculator: FC = () => {
                 <button id="zero-button" onClick={() => handleButtonClick(0)}>0</button>
                 <button id="decimal-button" onClick={() => handleButtonClick(".")}>.</button>
             </div>
-            {pastCalculations.length > 0 && <h2>Calculation History</h2>}
+            
             <CalculatorHistory pastCalculations={pastCalculations}/>
         </main>
     )

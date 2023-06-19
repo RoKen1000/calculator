@@ -32,6 +32,10 @@
     grid-row: 7 / 5;
 }
 
+#equals-button:hover{
+    background-image: linear-gradient(rgb(0 0 0/8%) 0 0); 
+}
+
 #clear-button{
     grid-column: 4;
     grid-row: 3;
@@ -52,4 +56,19 @@
 }
 h2{
     text-align: center;
+}
+
+@media screen and (min-width: 800px) {
+    .calculator-content-container{
+        display: flex;
+        flex-direction: row;
+        width: 800px;
+        margin-left: auto;
+        margin-right: auto;
+        margin-bottom: 20px;
+        justify-content: space-evenly;
+    }
+    .calculator-box{
+        margin: 0;
+    }
 }
