@@ -5,7 +5,7 @@ import { Footer } from './components/Footer';
 function App() {
   return (
     <div className="App">
-      <h1>Calculator</h1>
+      <h1>TypeScript Calculator</h1>
       <Calculator />
       <Footer />
     </div>
