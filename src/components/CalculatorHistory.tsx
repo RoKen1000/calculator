@@ -1,4 +1,4 @@
-import { FC, useState, useEffect } from "react";
+import { FC } from "react";
 import "../styles/CalculatorHistory.css"
 import {v4 as uuid} from "uuid"
 
