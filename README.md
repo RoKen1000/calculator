@@ -23,3 +23,7 @@ To download and test this project, create a folder on your machine where you wan
 >git clone https://<span>github</span>.com/RoKen1000/typescript-calculator.git
 
 After this, open the folder with your desired code editor.
+
+# Link To Hosted Version
+
+The hosted version of this app <a href="https://typescript-calculator-rk.netlify.app/">can be found here.</a>
